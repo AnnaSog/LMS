@@ -1,4 +1,7 @@
-
+/* .wrapper {
+  margin: 0 auto;
+  max-width: 1000px;
+} */
 
 button{
   cursor: pointer;
@@ -12,28 +15,6 @@ header {
   background: #C3C3C3;
   height: 72px;
   padding-right: 30px;
-}
-
-.profile{
-  display: flex;
-  align-items: center;
-
-}
-.profileImg {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  padding-right: 10px;
-}
-.profileName{
-  font-size: 24px;
-  font-weight: 800;
-}
-.profileButton{
-  background: #C3C3C3;
-  margin-left: 10px;
-  width: 35px;
-  height: 35px;
 }
 
 .main{

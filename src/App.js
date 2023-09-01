@@ -1,24 +1,22 @@
+import Profile from './components/Profile/Profile';
+
 import './App.css';
+
 
 
 const App = () => {
   return (
     <div className='wrapper'>
       <header>
-        <div className='profile'>
-        
-          <img className='profileImg' src="https://annavart.ru/img/IMG_0241-min.JPG" alt="profileImg"  />
-          <div className='profileName'> Мария Петрова </div>
-          <button className='profileButton'>...</button>
-        </div>
+        <Profile/>
       </header>
 
       <div className='main'> 
         <div className='info'>
-          <h1>Расписание</h1>
+          <h1>Расписание </h1>
           <div className='date'>
             <div className='week'>17.10 - 23.10</div>
-            <button className='addLesson'>Добавить урок</button>
+            <button  className='addLesson'>Добавить урок</button>
           </div>
         </div>
 
@@ -100,17 +98,12 @@ const App = () => {
               <td className='col'></td>
               <td className='col'></td>
             </tr>
-           
           </table>
         </div>
       </div>
-
-      
-   
     </div>
 
   )
 }
-
 
 export default App;
