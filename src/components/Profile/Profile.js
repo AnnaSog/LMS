@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import useService from '../../services/Service';
 
 import './Profile.css';
+import JonSnow from './JonSnow.jpg'
 
 const Profile = () => {
     const [name, setName] = useState('Мария Петрова');
+    const [loading, setLoading] = useState(true);
   
-    const {getAllUsers} = useService()
+    const {getAllUsers} = useService();
 
     useEffect( () => {
         updateName();
@@ -14,21 +16,23 @@ const Profile = () => {
  
     const onUserLoaded = (name) => {   
         setName(name); 
-        console.log(name);
+        setLoading(false);
     }
 
     function updateName(){
         if(!name){
-        return
+            return
         }
         getAllUsers()
         .then(onUserLoaded)     
     }
 
     return(
+        
         <div className='profile'>
-            <img className='profileImg' src="https://annavart.ru/img/IMG_0241-min.JPG" alt="profileImg"  />
-            <div className='profileName'> {name.name}  {name.surname} </div>
+            <img className='profileImg' src={JonSnow} alt="profileImg"  />
+            {loading ? <div className='profileName'> Loading... </div> : <div className='profileName'> {name.name}  {name.surname} </div> }
+            
             <button  className='profileButton'>...</button>
         </div>
     )

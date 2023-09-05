@@ -1,0 +1,52 @@
+h1 {
+    margin: 0;
+    padding-top: 15px;
+    text-align: center;
+}
+.weekButton {
+    margin-top: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.weekButton button{
+    width: 40px;
+    height: 30px;
+}
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.arrowNext {
+    transform: rotate(-45deg);
+/* -webkit-transform: rotate(-45deg); */
+}
+
+.arrowPrev {
+    transform: rotate(135deg);
+/* -webkit-transform: rotate(135deg); */
+}
+.week {
+    font-size: 20px;
+    padding: 0 15px;
+    /* margin-top: 13px; */
+    /* text-align: center; */
+}
+.addButton {
+    text-align: end;
+    padding-right: 30px;
+}
+
+
+
+.addLesson {
+    height: 48px;
+    background: #C3C3C3;
+    border-width: 0;
+    font-size: 16px;
+    /* margin-left: 35%;
+    padding: 1%; */
+}

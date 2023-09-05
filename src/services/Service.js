@@ -12,11 +12,12 @@ const useService = () => {
 
     const getAllUsers = async() => {
         const res = await getResource(`${_urlBase}users`);
-        //console.log(res.name);
-        //console.log(_transformUser(res.name));
-         //return res.name
-       
-         return _transformUser(res)
+        return _transformUser(res)
+    }
+
+    const getAllLessons = async() => {
+        const res = await getResource(`${_urlBase}users/lessons`);
+        return res.map(_transformLessons);  
     }
 
     const _transformUser = (res) => {
@@ -32,12 +33,24 @@ const useService = () => {
         }
     }
 
+    const _transformLessons = (res) => {
+        return{
+            idLesson: res.idLesson,
+            nameLesson: res.subject.name,
+            date: res.date,
+            timeStart: res.timeStart.slice(0, 5),
+            timeEnd: res.timeEnd.slice(0, 5),
+            progress: res.progress,
+            checkSuccessfully: res.checkSuccessfully
+        }
+    }
+
     //по на сервере id не настроено
     // const getUser = (id) => {
     //     return getResource(`${_urlBase}users/${id}`)
     // }
 
-    return {getAllUsers}
+    return {getAllUsers, getAllLessons}
 }
 
 export default useService;
