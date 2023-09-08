@@ -1,6 +1,7 @@
 const useService = () => {
     const _urlBase = 'https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/'
-    
+    // const _urlBase = 'http://195.161.68.231:8080/'
+
     const getResource = async(url) => {
         let res = await fetch(url);
     
@@ -10,13 +11,13 @@ const useService = () => {
         return await res.json();
     }
 
-    const getAllUsers = async() => {
-        const res = await getResource(`${_urlBase}users`);
+    const getAllUsers = async(id = 1) => {
+        const res = await getResource(`${_urlBase}users/${id}`); 
         return _transformUser(res)
     }
 
-    const getAllLessons = async() => {
-        const res = await getResource(`${_urlBase}users/lessons`);
+    const getAllLessons = async(id = 1) => {
+        const res = await getResource(`${_urlBase}users/${id}/lessons`);
         return res.map(_transformLessons);  
     }
 
@@ -44,11 +45,6 @@ const useService = () => {
             checkSuccessfully: res.checkSuccessfully
         }
     }
-
-    //по на сервере id не настроено
-    // const getUser = (id) => {
-    //     return getResource(`${_urlBase}users/${id}`)
-    // }
 
     return {getAllUsers, getAllLessons}
 }

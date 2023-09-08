@@ -25,17 +25,35 @@
     text-align: center;
 }
 td div {
+    cursor: pointer;
     text-align: center;
     height: 100%;
     padding-top: 10px;
 }
 
-.lessionPassed{
+.lessonPassed{
     background: rgb(140, 233, 140);
 }
-.lessionSkipped{
+.lessonSkipped{
     background:rgb(238, 174, 128)
 }
-.lessionFuture{
+.lessonFuture{
     background:rgb(128, 221, 238)
+}
+
+.buttons {
+    display: flex;
+    width: 200%;
+    justify-content: space-evenly;
+}
+
+.updateBut, .deleteBut {
+    margin-top: 20px;
+    height: 55px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
 }

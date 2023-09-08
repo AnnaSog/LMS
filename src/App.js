@@ -1,17 +1,13 @@
 import Profile from './components/Profile/Profile';
-import Info from './components/Info/Info';
+import AddLesson from './components/AddLesson/AddLesson';
 import Schedule from './components/Schedule/Schedule';
-import ModalUser from './components/ModalUser/ModalUser';
-import useService from './services/Service';
+
 
 import './App.css';
 
 
 
 const App = () => {
-
- 
-
   return (
     <div className='wrapper'>
       
@@ -20,8 +16,8 @@ const App = () => {
       </header>
 
       <div className='main'> 
-        <ModalUser/>
-        <Info/>
+        {/* <ModalUser/> */}
+        <AddLesson/>
         <Schedule/>
         
       </div>

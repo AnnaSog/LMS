@@ -1,24 +1,8 @@
-.profileOverlay {
-    /* display: block; */
-    display: none;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    background-color: rgba(0,0,0,.56);
-}
-.openModalUser {
-    display: block; 
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    background-color: rgba(0,0,0,.56);
-}
 
-.profileModal {
+.lessonModal {
+    display: none;
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 380px;
@@ -27,25 +11,35 @@
     padding: 38px 40px 40px 40px;
 }
 
-.modalClose {
+.open {
+    display: block;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 380px;
+    min-height: 400px;
+    background-color: #C3C3C3;
+    padding: 38px 40px 40px 40px;
+}
+
+
+.lessonClose {
     position: absolute;
     top: 0;
     right: -40px;
     font-size: 41px;
     line-height: 21px;
-    color: white;
+    color: black;
     cursor: pointer;
 }
-.profileForm{
-    /* margin: 36px; */
-    /* display: flex; */
+.lessonForm{
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
     margin-top: 35px;
-    /* width: 500px; */
 }
-.profileForm div {
+.lessonForm label {
     text-align: center;
     margin-right: 5px;
     height: 35px;
@@ -57,7 +51,7 @@
     font-weight: 300;
 }
    
-.profileForm input {
+.lessonInput {
     height: 45px;
     background-color: #fff;
     border-radius: 5px;
@@ -68,8 +62,14 @@
     color: #4b4b4b;
     border: none;
 }
-
-.profileForm button {
+.checkboxInput {
+    height: 25px;
+    width: 30px;
+}
+.checkbox{
+    margin-right: 0;
+}
+.addButtonModal {
     margin-top: 20px;
     width: 300%;
     height: 55px;
@@ -80,17 +80,16 @@
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
-}
-.modalImg {
-    margin: 0 auto;
-    height: 100px;
-    width: 100px;
-}
-.modalImg img{
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    padding-right: 10px;
+    
 }
 
-    
+.addButton {
+    text-align: end;
+    padding-right: 30px;
+}
+.addLessonBut {
+    height: 48px;
+    background: #C3C3C3;
+    border-width: 0;
+    font-size: 16px;
+}

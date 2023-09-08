@@ -5,18 +5,12 @@ const Info = () => {
         <div className='info'>
             <h1>Расписание </h1>
             <div className='weekButton'>
-                <button className="prev">
-                    <i className="arrowPrev"></i>
-                </button>
-                <div className='week'>04.10 - 10.10</div>
-                <button className="next">
-                    <i className="arrowNext"></i>
-                </button>
-            </div>
-            <div className='addButton'>
-                <button  className='addLesson'>Добавить урок</button>
+                <button className="prev"> &#8592;</button>
+                <div className='week'>04.10.2023 - 10.10.2023</div>
+                <button className="next">&#8594;</button>
             </div>
         </div>
     )
 }
+
 export default Info;
