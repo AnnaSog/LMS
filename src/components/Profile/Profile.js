@@ -21,7 +21,8 @@ const Profile = () => {
 
     useEffect( () => {
         updateData();
-    }, [data])
+    }, [])
+    // console.log(data);
  
     const onDataLoaded = (data) => {   
         setData(data); 
@@ -51,7 +52,7 @@ const Profile = () => {
         setOpenModal(!openModal)   
     }
 
-    const {name, surname, login, email, date_birth} = data;
+    const {name, surname, login, email, dateBirth, avatarUrl} = data;
     const nameSurname = loading ? <div className='profileName'> Loading... </div> : <div className='profileName'> {name} {surname} </div> 
     const password = 'qwerty12'
 
@@ -60,6 +61,7 @@ const Profile = () => {
             <div className={classNames}>  
                 <div className="profileModal">
                     <div className='modalImg'><img src={JonSnow} alt="profileImg"/></div>
+
                     <div onClick={onCloseModal}className="modalClose">×</div>
                     <form className="profileForm" action="#" >
                         <div>Имя</div><input name="name" required="" type="text" defaultValue={name}/>
@@ -67,7 +69,7 @@ const Profile = () => {
                         <div>Логин</div><input name="login" required=""  type="text" defaultValue={login}/>
                         <div>Пароль</div><input name="password" required="" type="password" defaultValue={password}/>
                         <div>Электронная почта</div><input name="email" required=""  type="email" defaultValue={email}/>
-                        <div>Дата рождения</div><input name="date" type="date" defaultValue={date_birth}/>
+                        <div>Дата рождения</div><input name="date" type="date" defaultValue={dateBirth}/>
                         <button type='submit'>Обновить данные</button>                    
                     </form>
                 </div>

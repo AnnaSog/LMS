@@ -1,6 +1,6 @@
 const useService = () => {
-    const _urlBase = 'https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/'
-    // const _urlBase = 'http://195.161.68.231:8080/'
+    // const _urlBase = 'https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/'
+    const _urlBase = 'http://195.161.68.231:8080/'
 
     const getResource = async(url) => {
         let res = await fetch(url);
@@ -13,14 +13,19 @@ const useService = () => {
 
     const getAllUsers = async(id = 1) => {
         const res = await getResource(`${_urlBase}users/${id}`); 
+        // console.log(res);
         return _transformUser(res)
     }
 
     const getAllLessons = async(id = 1) => {
-        const res = await getResource(`${_urlBase}users/${id}/lessons`);
-        return res.map(_transformLessons);  
+        const res = await getResource(`${_urlBase}users/${id}/lessons`); //http://195.161.68.231:8080/users/1/lessons
+        // const res = await getResource('https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/users/1/lessons')
+        // console.log(res.map(_transformLessons))
+         return res.map(_transformLessons);  
+        
     }
 
+    
     const _transformUser = (res) => {
         return{
             id_user: res.id_user,
@@ -28,7 +33,7 @@ const useService = () => {
             surname: res.surname,
             login: res.login,
             email: res.email,
-            date_birth: res.date_birth,
+            dateBirth: res.dateBirth,
             dateRegistration: res.dateRegistration, 
             avatarUrl: res.avatarUrl
         }
@@ -46,7 +51,7 @@ const useService = () => {
         }
     }
 
-    return {getAllUsers, getAllLessons}
+    return { getAllUsers, getAllLessons}  
 }
 
 export default useService;
