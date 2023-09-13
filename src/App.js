@@ -17,7 +17,7 @@ const App = () => {
 
       <div className='main'> 
         {/* <ModalUser/> */}
-        {/* <AddLesson/> */}
+        <AddLesson/>
         <Schedule/>
       </div>
     </div>

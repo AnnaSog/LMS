@@ -15,7 +15,7 @@ const Schedule = () => {
       getLesson();
     },[])
 
-   console.log(lesson);
+  //  console.log(lesson);
 
     const onUserLoaded = (lesson) => {   
       setLesson(lesson); 

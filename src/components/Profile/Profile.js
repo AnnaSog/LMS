@@ -17,7 +17,7 @@ const Profile = () => {
     const [closeModal, setCloseModal] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const {getAllUsers} = useService();
+    const {getAllUsers, patchUser} = useService();
 
     useEffect( () => {
         updateData();
@@ -52,6 +52,15 @@ const Profile = () => {
         setOpenModal(!openModal)   
     }
 
+    const onPatchUser = (e)  => {
+        // e.preventDefault(); 
+        patchUser()
+            .then(res => console.log(res))
+    
+    } 
+
+ 
+
     const {name, surname, login, email, dateBirth, avatarUrl} = data;
     const nameSurname = loading ? <div className='profileName'> Loading... </div> : <div className='profileName'> {name} {surname} </div> 
     const password = 'qwerty12'
@@ -63,14 +72,14 @@ const Profile = () => {
                     <div className='modalImg'><img src={JonSnow} alt="profileImg"/></div>
 
                     <div onClick={onCloseModal}className="modalClose">×</div>
-                    <form className="profileForm" action="#" >
+                    <form onSubmit={onPatchUser} className="profileForm" action="#" >
                         <div>Имя</div><input name="name" required="" type="text" defaultValue={name}/>
                         <div>Фамилия</div> <input name="surname" required="" type="text" defaultValue={surname}/>
                         <div>Логин</div><input name="login" required=""  type="text" defaultValue={login}/>
                         <div>Пароль</div><input name="password" required="" type="password" defaultValue={password}/>
                         <div>Электронная почта</div><input name="email" required=""  type="email" defaultValue={email}/>
                         <div>Дата рождения</div><input name="date" type="date" defaultValue={dateBirth}/>
-                        <button type='submit'>Обновить данные</button>                    
+                        <button  type='submit'>Обновить данные</button>                    
                     </form>
                 </div>
             </div>   

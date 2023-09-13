@@ -18,13 +18,53 @@ const useService = () => {
     }
 
     const getAllLessons = async(id = 1) => {
-        const res = await getResource(`${_urlBase}users/${id}/lessons`); //http://195.161.68.231:8080/users/1/lessons
+        const res = await getResource(`${_urlBase}users/${id}/lessons`); 
+        //mock-service
         // const res = await getResource('https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/users/1/lessons')
-        // console.log(res.map(_transformLessons))
          return res.map(_transformLessons);  
         
     }
+    const getSubjects = async() => {
+        const res = await getResource(`${_urlBase}subjects`); 
+        console.log(res);
+        return res;  
+    }
 
+    // const postLesson = async(data) => {
+    //     const url = 'http://195.161.68.231:8080/users/1/lessons'
+    //     let res = await fetch(url, {
+    //         method: 'POST', 
+    //         body: data, //JSON.stringify({})
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+
+    //     if (!res.ok) {
+    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    //     }
+    //     console.log(res);
+    //     return await res.json();
+           
+    // }
+
+    const patchUser = async() => {
+        const url = 'http://195.161.68.231:8080/users/1'
+        let res = await fetch(url, {
+            method: 'PATCH', 
+            body: JSON.stringify({name: 'Элла'}), 
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (!res.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+        }
+
+        return await res.json();
+           
+    }
+    
     
     const _transformUser = (res) => {
         return{
@@ -51,7 +91,9 @@ const useService = () => {
         }
     }
 
-    return { getAllUsers, getAllLessons}  
+    
+
+    return { getAllUsers, getAllLessons, patchUser, getSubjects}  
 }
 
 export default useService;
