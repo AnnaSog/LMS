@@ -1,6 +1,6 @@
 const useService = () => {
     // const _urlBase = 'https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/'
-    const _urlBase = 'http://195.161.68.231:8080/'
+    const _urlBase = 'http://195.161.68.231:8080/users/1'
 
     const getResource = async(url) => {
         let res = await fetch(url);
@@ -11,59 +11,56 @@ const useService = () => {
         return await res.json();
     }
 
-    const getAllUsers = async(id = 1) => {
-        const res = await getResource(`${_urlBase}users/${id}`); 
+
+    const getAllUsers = async() => {
+        const res = await getResource(`${_urlBase}`); 
         // console.log(res);
         return _transformUser(res)
     }
 
-    const getAllLessons = async(id = 1) => {
-        const res = await getResource(`${_urlBase}users/${id}/lessons`); 
-        //mock-service
-        // const res = await getResource('https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/users/1/lessons')
-         return res.map(_transformLessons);  
-        
+    const getAllLessons = async() => {
+        const res = await getResource(`${_urlBase}/lessons`); 
+        return res.map(_transformLessons);  
     }
+
     const getSubjects = async() => {
-        const res = await getResource(`${_urlBase}subjects`); 
-        console.log(res);
+        const res = await getResource('http://195.161.68.231:8080/subjects'); 
         return res;  
     }
 
-    // const postLesson = async(data) => {
-    //     const url = 'http://195.161.68.231:8080/users/1/lessons'
-    //     let res = await fetch(url, {
-    //         method: 'POST', 
-    //         body: data, //JSON.stringify({})
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-
-    //     if (!res.ok) {
-    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-    //     }
-    //     console.log(res);
-    //     return await res.json();
-           
-    // }
-
-    const patchUser = async() => {
-        const url = 'http://195.161.68.231:8080/users/1'
-        let res = await fetch(url, {
-            method: 'PATCH', 
-            body: JSON.stringify({name: 'Элла'}), 
+    const postLesson = async(data) => {
+        let res = await fetch(`${_urlBase}/lessons`, {
+            method: 'POST', 
+            body: JSON.stringify(data), 
             headers: {
                 'Content-Type': 'application/json'
             }
         })
+    
         if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+            throw new Error(`Could not fetch http://195.161.68.231:8080/users/1/lessons, status: ${res.status}`);
         }
-
         return await res.json();
-           
     }
+
+
+
+    // const patchUser = async() => {
+    //     const url = 'http://195.161.68.231:8080/users/1'
+    //     let res = await fetch(url, {
+    //         method: 'PATCH', 
+    //         body: JSON.stringify({name: 'Элла'}), 
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //     if (!res.ok) {
+    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    //     }
+
+    //     return await res.json();
+           
+    // }
     
     
     const _transformUser = (res) => {
@@ -93,7 +90,7 @@ const useService = () => {
 
     
 
-    return { getAllUsers, getAllLessons, patchUser, getSubjects}  
+    return { getAllUsers, getAllLessons, getSubjects, postLesson}  
 }
 
 export default useService;

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+
 import Info from '../Info/Info';
 import useService from '../../services/Service';
 
@@ -8,30 +10,21 @@ const AddLesson = () => {
 
     const [openModal, setOpenModal] = useState(false);
     const [closeModal, setCloseModal] = useState(false);
-
-
     const [subjects, setSubjects] = useState([]);
     const [name, setName] = useState('');
     const [idSubject, seIdSubject] = useState('');
-    const [topic, setTopic] = useState('Предлоги');
-    const [date, setDate] = useState('2023-09-14');
-    const [timeStart, setTimeStart] = useState('09:40:00');
-    const [timeEnd, setTimeEnd] = useState('09:40:00');
-    const [progress, setProgress] = useState('');
-    const [checkSuccessfully, setCheckSuccessfully] = useState(false);
 
-    const { getSubjects} = useService();
+    const { getSubjects, postLesson} = useService();
 
+    //get subjects
     useEffect(() => {
         showSubjects()
     }, [])
     
-
     const showSubjects = () => {
         if(!subjects){
             return 
         } 
-       
         getSubjects()
             .then(res => setSubjects(res))      
     }
@@ -41,17 +34,18 @@ const AddLesson = () => {
             key={elem.idSubject} 
             value={elem.name} 
             id={elem.idSubject}
-            > {elem.name} </option>
+            > {elem.name}</option>
     })
 
 
+    //get id option 
     function onValueChange(e){
         setName(e.target.value)
-        const id = e.target.selectedIndex + 1
-        seIdSubject(id)
+        seIdSubject(e.target.selectedIndex)
     }
    
 
+    // open/close Modal
     let classNames = 'lessonModal';
 
     if(openModal){          
@@ -66,97 +60,120 @@ const AddLesson = () => {
         setCloseModal(!closeModal)
         setOpenModal(!openModal)   
     }
-
-
-    // function onPostLesson(e){
-    //     e.preventDefault();
-    //     postLesson()
-    //      .then(res => console.log(res))
-
-    // }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
+   
+   
+   //POST lesson
+    const handleSubmit = (obj) => {
     
-        fetch('http://195.161.68.231:8080/users/1/lessons', { 
-          method: 'POST',
-          body: JSON.stringify({subject:{idSubject, name}, topic, date, timeStart, timeEnd }), 
-          headers: {
-            'Content-Type': 'application/json'
-            }    
-        })
+        // fetch('http://195.161.68.231:8080/users/1/lessons', { 
+        //   method: 'POST',
+        //   body: JSON.stringify({subject: {idSubject, name}, ...obj }), 
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //     }    
+        // })
         
-          .then(response => response.json())
-          .then((result) => {
-            console.log(result);
-          });
-          
-      };
+
+        postLesson({subject: {idSubject, name}, ...obj })
+        .then((result) => {
+                console.log(result);
+            });
+    };
 
 
     return(
         <div className='addLesson'>
             <div className={classNames} >
                 <div onClick={onCloseModal} className="lessonClose">×</div>
-                 <form onSubmit={handleSubmit} className="lessonForm" action="#" >
+                <Formik 
+                    initialValues={{
+                        topic: '', 
+                        date: '', 
+                        timeStart: '00:00:00',
+                        timeEnd: '00:00:00',
+                        progress: '0',
+                        checkSuccessfully: false
+                    }}
+                    onSubmit={values => handleSubmit(values)}
+                >
+                    <Form className='lessonForm'> 
 
-                    <label htmlFor='subject' >Предмет</label> 
-                        <select id='subject' onChange={onValueChange} className='lessonInput' >
+                        <label htmlFor='name'>Предмет</label> 
+                        <select 
+                            as='select' 
+                            id='name' 
+                            className='lessonInput'
+                            required 
+                            onInput={onValueChange}
+                            >
                             <option> Выберите предмет </option>
                                 {subjectsElement}
                         </select>
-                     <label htmlFor='topic'>Тема урока</label>
-                        <input 
+
+                        <label htmlFor='topic'>Тема урока</label>
+                        <Field 
                             className='lessonInput'
                             id='topic' 
                             name="topic" 
-                            required=""  
-                            type="text" 
-                            defaultValue={topic}
+                            required  
                         />
-                    <label htmlFor='date'>Дата проведения</label>
-                        <input 
+
+                        <label htmlFor='date'>Дата проведения</label>
+                        <Field 
                             className='lessonInput' 
                             id='date' 
                             name="date" 
-                            required=""  
+                            required  
                             type="date" 
-                            defaultValue={date}/>
-                    <label htmlFor='timeStart'>Начало урока </label>
-                        <input 
+                            min="2023-09-11" 
+                            max="2023-09-17"
+                        />
+
+                        <label htmlFor='timeStart'>Начало урока </label>
+                        <Field 
                             className='lessonInput'
                             id='timeStart'   
                             name="timeStart" 
-                            required=""  
+                            required  
                             type="time" 
-                            defaultValue={timeStart}/>
-                    <label htmlFor='timeEnd'> Окончание урока </label>
-                        <input 
+                            step="1"
+                            min="09:00"
+                            max="18:00"
+                        />
+
+                        <label htmlFor='timeEnd'> Окончание урока </label>
+                        <Field 
                             className='lessonInput'
                             id='timeEnd' 
                             name="timeEnd" 
-                            required=""  
+                            required 
                             type="time" 
-                            defaultValue={timeEnd}/>
-                    <label htmlFor='progress'>Прогресс выполнения %</label>
-                        <input 
+                            min="09:30"
+                            max="18:59"
+                            step="1"
+                        />
+
+                        <label htmlFor='progress'>Прогресс выполнения %</label>
+                        <Field 
                             className='lessonInput'
                             id='progress' 
                             name="progress" 
                             type="number" 
-                            defaultValue={progress}/>
-                    <label htmlFor='checkSuccessfully'>Выполнено</label>
-                    <label className='checkbox'>
-                        <input 
-                            className='checkboxInput'
-                            id='checkSuccessfully' 
-                            name="checkSuccessfully" 
-                            type="checkbox" 
-                            defaultValue={checkSuccessfully}
                         />
-                    </label>
-                    <button className='addButtonModal' type="submit">Добавить урок</button>                      
-                </form> 
+
+                        <label htmlFor='checkSuccessfully'>Выполнено</label>
+                        <label className='checkbox'>
+                            <Field 
+                                className='checkboxInput'
+                                id='checkSuccessfully' 
+                                name="checkSuccessfully" 
+                                type="checkbox" 
+                            />
+                        </label>
+
+                        <button className='addButtonModal' type="submit">Добавить урок</button>                      
+                    </Form> 
+                </Formik>
             </div>
 
             <Info/>
