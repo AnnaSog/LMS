@@ -11,6 +11,7 @@ const Schedule = () => {
     const [openModal, setOpenModal] = useState(false);
     const [closeModal, setCloseModal] = useState(false);
   
+
     useEffect( () => {
       getLesson();
     },[])
@@ -30,6 +31,7 @@ const Schedule = () => {
         .then(onUserLoaded)    
     }
 
+    // open/close Modal Lesson
     let classNames = 'lessonModal';
     if(openModal){          
       classNames = 'open'; 
@@ -45,109 +47,203 @@ const Schedule = () => {
         setOpenModal(!openModal)   
     }
 
-    let lessonElement = lesson.map(les => <div key={les.idLesson}> {les.date} {les.nameLesson}<br/> {les.timeStart} : {les.timeEnd} <br/> {les.progress}%</div>)
+    //get lesson
+    //const lessonElement = lesson.map(les => <div key={les.idLesson}> {les.date} {les.nameLesson}<br/> {les.timeStart} : {les.timeEnd} <br/> {les.progress} % </div>)
+
+
+    const eleventhDay = lesson.filter(les => {if(les.date === '2023-09-11') return les})
+    const twelfthDay = lesson.filter(les => {if(les.date === '2023-09-12') return les})
+    const thirteenthDay = lesson.filter(les => {if(les.date === '2023-09-13') return les})
+    const fourteenthDay = lesson.filter(les => {if(les.date === '2023-09-14') return les})
+    const fifteenthDay = lesson.filter(les => {if(les.date === '2023-09-15') return les})
+    const sixteenthDay = lesson.filter(les => {if(les.date === '2023-09-16') return les})
+    const seventeenthDay = lesson.filter(les => {if(les.date === '2023-09-17') return les})
+
+    const dataLes = (les, i) => {
+      return <div className='tdata' key={i} id={les.idLesson}> <span><b>{les.nameLesson} <br/>{les.timeStart} : {les.timeEnd} </b></span><br/>{les.topic} <br/>  {les.progress} % </div>
+    }
+    
+    const eleventhDayData = eleventhDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+
+    const twelfthDayData = twelfthDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+
+    const thirteenthDayData = thirteenthDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+   const fourteenthDayData = fourteenthDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+    const fifteenthDayData = fifteenthDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+    const sixteenthDayData = sixteenthDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+    const seventeenthDayData = seventeenthDay.map((les, i) => { 
+      return dataLes(les, i)
+    })
+     
 
     return(
       <div>
-      
-        <div>
+        {/* <div>
             {loading ? <div className='lessonPassed'> Loading...</div> : 
               <div className='lessonPassed'>{lessonElement}</div>
             } 
         </div>
+        <br/> <br/>  */}
+
         <div className='schedule'>
-          <table className="clmonth" onClick={(e) => onOpenModal(e.target.id)} >
+
+          <div className='table' onClick={(e) => onOpenModal(e.target.id)}> 
+            <div className='tableBody' >
+              <div className='tableHead'>Пн <br/> <br/>11.09</div>
+              {eleventhDayData}
+            </div>
+            <div className='tableBody'>
+              <div className='tableHead'>Вт <br/> <br/>12.09</div>
+              {twelfthDayData}
+            </div>
+            <div className='tableBody'>
+              <div className='tableHead'>Ср <br/> <br/>13.09</div>
+              {thirteenthDayData}
+            </div>
+
+            <div className='tableBody'>
+              <div className='tableHead'>Чт <br/> <br/>14.09</div>
+              {fourteenthDayData}
+            </div>
+
+            <div className='tableBody'>
+              <div className='tableHead'>Пт <br/> <br/>15.09</div>
+              {fifteenthDayData}
+            </div>
+            <div className='tableBody'>
+              <div className='tableHead'>Сб <br/> <br/>16.09</div>
+              {sixteenthDayData}
+            </div>
+            <div className='tableBody'>
+              <div className='tableHead'>Вс <br/> <br/> 17.09</div>
+              {seventeenthDayData}
+            </div>
+
+          </div>
+          {/* <table className="clmonth"  >
+          <thead className="time" >
             <tr>
-              <th className="time" scope="col"></th>
-              <th id='2023-09-11' scope="col"> Пн <br/> <br/> 11.09 </th>
-              <th id='2023-09-12' scope="col">Вт <br/> <br/> 12.09 </th>
-              <th id='2023-09-13' scope="col">Ср <br/> <br/> 13.09 </th>
-              <th id='2023-09-14' scope="col">Чт <br/> <br/> 14.09 </th>
-              <th id='2023-09-15' scope="col">Пт <br/> <br/> 15.09 </th>
-              <th id='2023-09-16' scope="col">Сб <br/> <br/> 16.09 </th>
-              <th id='2023-09-17' scope="col">Вс <br/> <br/> 17.09 </th>
-            </tr>
-            <tr>
-              <td className="time">8:00</td>
-              <td className='col'> </td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-            </tr>
-            <tr>
-              <td className="time">9:00</td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-            </tr>
-            <tr>
-              <td className="time">10:00</td>
-              <td> 
-                {loading ? <div className='lessonPassed'> Loading...</div> : 
-                    <div id={lesson[0].idLesson} className='lessonPassed'> {lesson[0].nameLesson} <br/> {lesson[0].timeStart} : {lesson[0].timeEnd} <br/> {lesson[0].progress}% </div>
-                }
-              </td>
-              <td> 
-                {/* {loading ? <div className='lessonPassed'> Loading...</div> : 
-                    <div id={lesson[3].idLesson} className='lessonPassed'> {lesson[3].nameLesson} <br/> {lesson[3].timeStart} : {lesson[3].timeEnd} <br/> {lesson[3].progress}%</div>
-                } */}
-              </td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-            </tr>
-            <tr>
-              <td className="time">11:00</td>
-              <td> 
-                {/* {loading ? <div className='lessonPassed'> Loading...</div> : 
-                    <div id={lesson[1].idLesson}className='lessonPassed'> {lesson[1].nameLesson} <br/> {lesson[1].timeStart} : {lesson[1].timeEnd} <br/> {lesson[1].progress}%</div>
-                } */}
-              </td>
-              <td> 
-                {/* {loading ? <div className='lessonPassed'> Loading...</div> : 
-                    <div id={lesson[4].idLesson} className='lessonPassed'> {lesson[4].nameLesson} <br/> {lesson[4].timeStart} : {lesson[4].timeEnd} <br/> {lesson[4].progress}%</div>
-                } */}
-              </td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-            </tr>
-            <tr>
-              <td className="time">12:00</td>
-              <td> 
-                {/* {loading ? <div className='lessonPassed'> Loading...</div> : 
-                    <div id={lesson[2].idLesson} className='lessonPassed'> {lesson[2].nameLesson} <br/> {lesson[2].timeStart} : {lesson[2].timeEnd} <br/> {lesson[2].progress}% </div>
-                } */}
-              </td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-            </tr>
-            <tr>
-              <td className="time">13:00</td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-              <td className='col'></td>
-            </tr>
-          </table>
+
+                <th scope="col">Пн <br/> <br/> 11.09 </th>
+                <th  scope="col">Вт <br/> <br/> 12.09 </th>
+                <th  scope="col">Ср <br/> <br/> 13.09 </th>
+                <th  scope="col">Чт <br/> <br/> 14.09 </th>
+                <th  scope="col">Пт <br/> <br/> 15.09 </th>
+                <th  scope="col">Сб <br/> <br/> 16.09 </th>
+                <th  scope="col">Вс <br/> <br/> 17.09 </th>
+              </tr>
+          </thead>
+            <tbody onClick={(e) => onOpenModal(e.target.id)}>
+
+
+              <tr className='tdata'>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+  
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+            
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+          
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+               
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+               
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+              <tr className='tdata'>
+               
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+                <td className='col'></td>
+              </tr>
+
+
+            </tbody>
+          </table> */}
 
       
           

@@ -80,6 +80,7 @@ const useService = () => {
         return{
             idLesson: res.idLesson,
             nameLesson: res.subject.name,
+            topic: res.topic,
             date: res.date,
             timeStart: res.timeStart.slice(0, 5),
             timeEnd: res.timeEnd.slice(0, 5),

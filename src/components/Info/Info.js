@@ -6,7 +6,7 @@ const Info = () => {
             <h1>Расписание </h1>
             <div className='weekButton'>
                 <button className="prev"> &#8592;</button>
-                <div className='week'>04.10.2023 - 10.10.2023</div>
+                <div className='week'>11.10.2023 - 17.10.2023</div>
                 <button className="next">&#8594;</button>
             </div>
         </div>

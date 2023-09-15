@@ -64,15 +64,6 @@ const AddLesson = () => {
    
    //POST lesson
     const handleSubmit = (obj) => {
-    
-        // fetch('http://195.161.68.231:8080/users/1/lessons', { 
-        //   method: 'POST',
-        //   body: JSON.stringify({subject: {idSubject, name}, ...obj }), 
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //     }    
-        // })
-        
 
         postLesson({subject: {idSubject, name}, ...obj })
         .then((result) => {
