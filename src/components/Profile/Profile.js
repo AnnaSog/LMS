@@ -67,12 +67,12 @@ const Profile = () => {
 
                     <div onClick={onCloseModal}className="modalClose">×</div>
                     <form onSubmit={onPatchUser} className="profileForm" action="#" >
-                        <label>Имя</label><input name="name" required="" type="text" defaultValue={name}/>
-                        <label>Фамилия</label> <input name="surname" required="" type="text" defaultValue={surname}/>
-                        <label>Логин</label><input name="login" required=""  type="text" defaultValue={login}/>
-                        <label>Пароль</label><input name="password" required="" type="password" defaultValue={password}/>
-                        <label>Электронная почта</label><input name="email" required=""  type="email" defaultValue={email}/>
-                        <label>Дата рождения</label><input name="date" type="date" defaultValue={dateBirth}/>
+                        <label htmlFor='nameUser'>Имя</label><input id='nameUser' name="name" required="" type="text" defaultValue={name}/>
+                        <label htmlFor='surname'>Фамилия</label> <input id='surname' name="surname" required="" type="text" defaultValue={surname}/>
+                        <label htmlFor='login'>Логин</label><input id='login' name="login" required=""  type="text" defaultValue={login}/>
+                        <label htmlFor='password'>Пароль</label><input  id='password' name="password" required="" type="password" defaultValue={password}/>
+                        <label htmlFor='email'>Электронная почта</label><input id='email' name="email" required=""  type="email" defaultValue={email}/>
+                        <label htmlFor='dateBirth'>Дата рождения</label><input  id='dateBirth' name="date" type="date" defaultValue={dateBirth}/>
                         <button type='button'> Обновить данные</button>                    
                     </form>
                 </div>
