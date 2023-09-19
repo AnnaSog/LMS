@@ -1,45 +1,3 @@
-/* .clmonth {
-    margin-top: 20px;
-    width: 100%;
-    padding: 0 30px 0 30px
-}
-.clmonth th {
-    border: 1px solid #AAAAAA;
-    padding: 0.5em 0.6em 0.5em 0.6em;
-    background-color: #CCCCCC;
-    color: #3F3F3F;
-}
-.clmonth td {
-    border: 1px solid #EAEAEA;
-    font: 80% Verdana, Geneva, Arial, Helvetica, sans-serif;
-    padding: 0.2em 0.6em 0.2em 0.6em;
-    vertical-align: top;
-    height: 67px;
-    background: #FFFF;
-}
-.col {
-    width: 110px;
-}
-.time {
-    width: 50px;
-    text-align: center;
-}
-td div {
-    cursor: pointer;
-    text-align: center;
-    height: 100%;
-    padding-top: 10px;
-}
-
-.lessonPassed{
-    background: rgb(140, 233, 140);
-}
-.lessonSkipped{
-    background:rgb(238, 174, 128)
-}
-.lessonFuture{
-    background:rgb(128, 221, 238)
-} */
 
 .buttons {
     display: flex;
@@ -50,7 +8,9 @@ td div {
 .updateBut, .deleteBut {
     margin-top: 20px;
     height: 55px;
+    /* width: 60%; */
     font-size: 16px;
+    font-weight: 600;
     background-color: white;
     border-radius: 5px;
     border: none;
@@ -82,14 +42,26 @@ td div {
     margin-top: 10px;
     border: 2px solid #fdfdfd;
     border-radius: 5px;
-    background-color: #f9f9f9;
     padding: 10px;
     text-align: center;
     min-height: 130px;
-    line-height: 25px;
+    line-height: 28px;
     cursor: pointer;
 }
 span{
     font-size: 18px;
     /* line-height: 30px; */
+    font-weight: bold;
 }
+.lessonPassed{
+    background: rgb(140, 233, 140);
+}
+.lessonSkipped{
+    background:rgb(238, 174, 128)
+}
+.lessonFuture{
+    background:rgb(128, 221, 238)
+} 
+.lessonRepetition{
+    background:rgb(238, 53, 50)
+} 

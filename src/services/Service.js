@@ -19,8 +19,13 @@ const useService = () => {
     }
 
     const getAllLessons = async() => {
-        const res = await getResource(`${_urlBase}/lessons`); 
+        const res = await getResource(`${_urlBase}/lessons?from=2023-09-11&to=2023-09-17`); 
         return res.map(_transformLessons);  
+    }
+
+    const getLesson = async(id) => {
+        const res = await getResource(`${_urlBase}/lessons/${id}`); 
+        return _transformLessons(res);  
     }
 
     const getSubjects = async() => {
@@ -45,17 +50,16 @@ const useService = () => {
 
 
 
-    // const patchUser = async() => {
-    //     const url = 'http://195.161.68.231:8080/users/1'
-    //     let res = await fetch(url, {
+    // const patchLesson = async(id, data) => {
+    //     let res = await fetch(`${_urlBase}/lessons/${id}`, {
     //         method: 'PATCH', 
-    //         body: JSON.stringify({name: 'Элла'}), 
+    //         body: JSON.stringify(data),  
     //         headers: {
     //             'Content-Type': 'application/json'
     //         }
     //     })
     //     if (!res.ok) {
-    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    //         throw new Error(`Could not fetch ${_urlBase}/lessons/${id}, status: ${res.status}`);
     //     }
 
     //     return await res.json();
@@ -82,16 +86,16 @@ const useService = () => {
             nameLesson: res.subject.name,
             topic: res.topic,
             date: res.date,
-            timeStart: res.timeStart.slice(0, 5),
-            timeEnd: res.timeEnd.slice(0, 5),
+            timeStart: res.timeStart,
+            timeEnd: res.timeEnd,
             progress: res.progress,
             checkSuccessfully: res.checkSuccessfully
         }
     }
-
+      
     
 
-    return { getAllUsers, getAllLessons, getSubjects, postLesson}  
+    return { getAllUsers, getAllLessons, getSubjects, postLesson, getLesson}  
 }
 
 export default useService;

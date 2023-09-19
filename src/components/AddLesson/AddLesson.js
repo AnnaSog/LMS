@@ -13,8 +13,15 @@ const AddLesson = () => {
     const [subjects, setSubjects] = useState([]);
     const [name, setName] = useState('');
     const [idSubject, seIdSubject] = useState('');
-
+    const [message, setMessage] = useState('');
+    const [buttonAdd, setButtonAdd] = useState(addBut);
+ 
+  
     const { getSubjects, postLesson} = useService();
+
+    function addBut(){
+        return <button className='addButtonModal' type="submit">Добавить урок</button>
+    } 
 
     //get subjects
     useEffect(() => {
@@ -60,15 +67,25 @@ const AddLesson = () => {
         setCloseModal(!closeModal)
         setOpenModal(!openModal)   
     }
-   
-   
+
+
+
    //POST lesson
     const handleSubmit = (obj) => {
-
-        postLesson({subject: {idSubject, name}, ...obj })
-        .then((result) => {
-                console.log(result);
-            });
+        if(obj.timeEnd < obj.timeStart){
+            setMessage('Исправьте время окончания урока');
+        }else {
+            postLesson({subject: {idSubject, name}, ...obj })
+            .then((result) => {
+                    console.log(result);
+                    setButtonAdd(<div className='setButtonAdd'></div>);
+                    setMessage('Урок добавлен! Обновите страницу');
+                })
+            .catch ( ()=>{
+                setMessage('Заполните "Предмет"');
+            })
+        }
+     
     };
 
 
@@ -85,13 +102,13 @@ const AddLesson = () => {
                         progress: '0',
                         checkSuccessfully: false
                     }}
+                   
                     onSubmit={values => handleSubmit(values)}
                 >
+                   
                     <Form className='lessonForm'> 
-
                         <label htmlFor='name'>Предмет</label> 
                         <select 
-                            as='select' 
                             id='name' 
                             className='lessonInput'
                             required 
@@ -106,6 +123,9 @@ const AddLesson = () => {
                             className='lessonInput'
                             id='topic' 
                             name="topic" 
+                            type="text"
+                            minLength="3"
+                            maxLength="30"
                             required  
                         />
 
@@ -131,7 +151,7 @@ const AddLesson = () => {
                             min="09:00"
                             max="18:00"
                         />
-
+                        
                         <label htmlFor='timeEnd'> Окончание урока </label>
                         <Field 
                             className='lessonInput'
@@ -142,14 +162,17 @@ const AddLesson = () => {
                             min="09:30"
                             max="18:59"
                             step="1"
+                            
                         />
-
+   
                         <label htmlFor='progress'>Прогресс выполнения %</label>
                         <Field 
                             className='lessonInput'
                             id='progress' 
                             name="progress" 
                             type="number" 
+                            min="0"
+                            max="100"
                         />
 
                         <label htmlFor='checkSuccessfully'>Выполнено</label>
@@ -162,7 +185,11 @@ const AddLesson = () => {
                             />
                         </label>
 
-                        <button className='addButtonModal' type="submit">Добавить урок</button>                      
+                        <div>
+                            {buttonAdd}
+                            <div className='status'>{message}  </div>
+                        </div>
+                                      
                     </Form> 
                 </Formik>
             </div>

@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react';
-
-import ModalUser from '../ModalUser/ModalUser'
 import useService from '../../services/Service';
 
-
 import './Profile.css';
-import JonSnow from './JonSnow.jpg'
-
-
-
+import avatar from './avatarka.jpg'
 
 const Profile = () => {
 
@@ -61,7 +55,7 @@ const Profile = () => {
 
  
 
-    const {name, surname, login, email, dateBirth, avatarUrl} = data;
+    const {name, surname, login, email, dateBirth} = data;
     const nameSurname = loading ? <div className='profileName'> Loading... </div> : <div className='profileName'> {name} {surname} </div> 
     const password = 'qwerty12'
 
@@ -69,23 +63,23 @@ const Profile = () => {
         <>
             <div className={classNames}>  
                 <div className="profileModal">
-                    <div className='modalImg'><img src={JonSnow} alt="profileImg"/></div>
+                    <div className='modalImg'><img src={avatar} alt="profileImg"/></div>
 
                     <div onClick={onCloseModal}className="modalClose">×</div>
                     <form onSubmit={onPatchUser} className="profileForm" action="#" >
-                        <div>Имя</div><input name="name" required="" type="text" defaultValue={name}/>
-                        <div>Фамилия</div> <input name="surname" required="" type="text" defaultValue={surname}/>
-                        <div>Логин</div><input name="login" required=""  type="text" defaultValue={login}/>
-                        <div>Пароль</div><input name="password" required="" type="password" defaultValue={password}/>
-                        <div>Электронная почта</div><input name="email" required=""  type="email" defaultValue={email}/>
-                        <div>Дата рождения</div><input name="date" type="date" defaultValue={dateBirth}/>
-                        <button  type='submit'>Обновить данные</button>                    
+                        <label>Имя</label><input name="name" required="" type="text" defaultValue={name}/>
+                        <label>Фамилия</label> <input name="surname" required="" type="text" defaultValue={surname}/>
+                        <label>Логин</label><input name="login" required=""  type="text" defaultValue={login}/>
+                        <label>Пароль</label><input name="password" required="" type="password" defaultValue={password}/>
+                        <label>Электронная почта</label><input name="email" required=""  type="email" defaultValue={email}/>
+                        <label>Дата рождения</label><input name="date" type="date" defaultValue={dateBirth}/>
+                        <button type='button'> Обновить данные</button>                    
                     </form>
                 </div>
             </div>   
 
             <div className='profile'>
-                <img className='profileImg' src={JonSnow} alt="profileImg"  />
+                <img className='profileImg' src={avatar} alt="profileImg"  />
                 {nameSurname}
                 <button onClick={onOpenModal} className='profileButton'>...</button>
                 

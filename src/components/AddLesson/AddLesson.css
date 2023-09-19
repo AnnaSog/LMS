@@ -82,6 +82,9 @@
     cursor: pointer;
     
 }
+.deleteButtonModal {
+    display: none;
+}
 
 .addButton {
     text-align: end;
@@ -92,4 +95,12 @@
     background: #C3C3C3;
     border-width: 0;
     font-size: 16px;
+}
+
+.status{
+    margin-top: 10px;
+    color: red;
+    font-size: 16px;
+    text-align: center;
+    width: 300%;
 }
