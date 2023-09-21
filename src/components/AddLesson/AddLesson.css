@@ -1,33 +1,24 @@
 
 .lessonModal {
     display: none;
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 380px;
-    min-height: 400px;
-    background-color: #C3C3C3;
-    padding: 38px 40px 40px 40px;
 }
 
 .open {
     display: block;
     position: absolute;
-    top: 70%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 380px;
+    width: 460px;
     min-height: 400px;
     background-color: #C3C3C3;
     padding: 38px 40px 40px 40px;
 }
 
-
 .lessonClose {
     position: absolute;
     top: 0;
-    right: -40px;
+    right: -30px;
     font-size: 41px;
     line-height: 21px;
     color: black;

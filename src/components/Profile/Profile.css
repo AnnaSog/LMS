@@ -23,11 +23,11 @@
 .profileOverlay {
     /* display: block; */
     display: none;
-    position: fixed;
+    /* position: fixed;
     height: 100%;
     width: 100%;
     top: 0;
-    background-color: rgba(0,0,0,.56);
+    background-color: rgba(0,0,0,.56); */
 }
 .openModalUser {
     display: block; 

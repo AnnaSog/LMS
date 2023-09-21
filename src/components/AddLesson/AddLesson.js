@@ -6,10 +6,8 @@ import useService from '../../services/Service';
 
 import './AddLesson.css'
 
-const AddLesson = () => {
+const AddLesson = (props) => {
 
-    const [openModal, setOpenModal] = useState(false);
-    const [closeModal, setCloseModal] = useState(false);
     const [subjects, setSubjects] = useState([]);
     const [name, setName] = useState('');
     const [idSubject, seIdSubject] = useState('');
@@ -55,19 +53,9 @@ const AddLesson = () => {
     // open/close Modal
     let classNames = 'lessonModal';
 
-    if(openModal){          
+    if(props.openModal){          
         classNames = 'open'; 
     }
-
-    function onOpenModal(){
-        setOpenModal(!openModal)
-    }
-
-    function onCloseModal(){
-        setCloseModal(!closeModal)
-        setOpenModal(!openModal)   
-    }
-
 
 
    //POST lesson
@@ -91,14 +79,19 @@ const AddLesson = () => {
 
     return(
         <div className='addLesson'>
+           
             <div className={classNames} >
-                <div onClick={onCloseModal} className="lessonClose">×</div>
+             
+                <div onClick={props.onCloseModal} className="lessonClose">×</div>
                 <Formik 
                     initialValues={{
                         topic: '', 
                         date: '', 
                         timeStart: '00:00:00',
                         timeEnd: '00:00:00',
+                        theoryUrl: '',
+                        practiceUrl: '',
+                        homeworkUrl: '',
                         progress: '0',
                         checkSuccessfully: false
                     }}
@@ -149,7 +142,7 @@ const AddLesson = () => {
                             type="time" 
                             step="1"
                             min="09:00"
-                            max="18:00"
+                            max="18:40"
                         />
                         
                         <label htmlFor='timeEnd'> Окончание урока </label>
@@ -159,12 +152,35 @@ const AddLesson = () => {
                             name="timeEnd" 
                             required 
                             type="time" 
-                            min="09:30"
-                            max="18:59"
+                            min="09:20"
+                            max="19:00"
                             step="1"
                             
                         />
-   
+                        <label htmlFor='theory'> Теория </label>
+                        <Field 
+                            className='lessonInput'
+                            id='theory' 
+                            name="theory"  
+                            type="url" 
+                        />
+
+                        <label htmlFor='practice'> Практика </label>
+                        <Field 
+                            className='lessonInput'
+                            id='practice' 
+                            name="practice" 
+                            type="url"
+                        />
+
+                        <label htmlFor='homework'> Домашнее задание </label>
+                        <Field 
+                            className='lessonInput'
+                            id='homework' 
+                            name="homework"
+                            type="url" 
+                        />
+
                         <label htmlFor='progress'>Прогресс выполнения %</label>
                         <Field 
                             className='lessonInput'
@@ -192,12 +208,15 @@ const AddLesson = () => {
                                       
                     </Form> 
                 </Formik>
+                
             </div>
+            
 
             <Info/>
             <div className='addButton'>
-                <button onClick={onOpenModal}  className='addLessonBut'>Добавить урок</button>
+                <button onClick={props.onOpenModal}  className='addLessonBut'>Добавить урок</button>
             </div>
+            
         </div>
     )
 }

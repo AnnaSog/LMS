@@ -1,33 +1,12 @@
 
-.buttons {
-    display: flex;
-    width: 200%;
-    justify-content: space-evenly;
-}
-
-.updateBut, .deleteBut {
-    margin-top: 20px;
-    height: 55px;
-    /* width: 60%; */
-    font-size: 16px;
-    font-weight: 600;
-    background-color: white;
-    border-radius: 5px;
-    border: none;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-
-
 .table{
     margin-top: 20px;
     padding: 0 20px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    row-gap: 10px;
-    border: 2px solid #fdfdfd;
+    /* gap: 10px; */
+    column-gap: 10px;
+    border: 1px solid #fdfdfd;
     border-radius: 5px;
 }
 .tableHead{
@@ -44,7 +23,7 @@
     border-radius: 5px;
     padding: 10px;
     text-align: center;
-    min-height: 130px;
+    min-height: 150px;
     line-height: 28px;
     cursor: pointer;
 }
@@ -65,3 +44,23 @@ span{
 .lessonRepetition{
     background:rgb(238, 53, 50)
 } 
+
+
+.buttons {
+    display: flex;
+    /* width: 200%;  */
+    width: 300%; 
+    justify-content: space-evenly;
+}
+.updateBut, .deleteBut {
+    margin-top: 20px;
+    height: 55px;
+    width: 60%;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: white;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}

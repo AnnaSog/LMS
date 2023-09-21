@@ -48,6 +48,15 @@ const useService = () => {
         return await res.json();
     }
 
+    const deleteLesson = async(id) => {
+        let url = `${_urlBase}/lessons/${id}`
+        let res = await fetch(url, {method: 'DELETE'});
+        
+        if (!res.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+        }
+        return await res.text();
+    }
 
 
     // const patchLesson = async(id, data) => {
@@ -65,6 +74,7 @@ const useService = () => {
     //     return await res.json();
            
     // }
+
     
     
     const _transformUser = (res) => {
@@ -75,8 +85,7 @@ const useService = () => {
             login: res.login,
             email: res.email,
             dateBirth: res.dateBirth,
-            dateRegistration: res.dateRegistration, 
-            avatarUrl: res.avatarUrl
+            dateRegistration: res.dateRegistration
         }
     }
 
@@ -89,13 +98,14 @@ const useService = () => {
             timeStart: res.timeStart,
             timeEnd: res.timeEnd,
             progress: res.progress,
-            checkSuccessfully: res.checkSuccessfully
+            checkSuccessfully: res.checkSuccessfully,
+            theoryUrl: (res.theoryUrl === null) || (res.theoryUrl === '')  ? 'Нет данных' : res.theoryUrl,
+            practiceUrl: (res.practiceUrl === null) || (res.theoryUrl === '') ? 'Нет данных' : res.practiceUrl, 
+            homeworkUrl: (res.homeworkUrl === null) || (res.theoryUrl === '') ? 'Нет данных' : res.homeworkUrl,
         }
     }
-      
-    
 
-    return { getAllUsers, getAllLessons, getSubjects, postLesson, getLesson}  
+    return { getAllUsers, getAllLessons, getSubjects, postLesson, getLesson, deleteLesson}  
 }
 
 export default useService;
