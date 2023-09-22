@@ -8,6 +8,7 @@ import './AddLesson.css'
 
 const AddLesson = (props) => {
 
+    const [lessons, setLessons] = useState([]);
     const [subjects, setSubjects] = useState([]);
     const [name, setName] = useState('');
     const [idSubject, seIdSubject] = useState('');
@@ -15,7 +16,7 @@ const AddLesson = (props) => {
     const [buttonAdd, setButtonAdd] = useState(addBut);
  
   
-    const { getSubjects, postLesson} = useService();
+    const {getAllLessons, getSubjects, postLesson} = useService();
 
     function addBut(){
         return <button className='addButtonModal' type="submit">Добавить урок</button>
@@ -49,6 +50,23 @@ const AddLesson = (props) => {
         seIdSubject(e.target.selectedIndex)
     }
    
+    //get lessons
+    useEffect( () => {
+        getLessons();
+    },[])
+
+    const onLessonsLoaded = (lessons) => {   
+        setLessons(lessons); 
+    }
+    
+    function getLessons(){
+        if(!lessons){
+            return 
+        } 
+        getAllLessons()
+            .then(onLessonsLoaded)    
+    }
+
 
     // open/close Modal
     let classNames = 'lessonModal';
@@ -58,10 +76,41 @@ const AddLesson = (props) => {
     }
 
 
+    // const dateTime = lessons.map(les => {
+    //    if (les.date && les.timeStart){
+    //     return les
+    //    }
+    // } )
+    // const dateTime = lessons.map(les => {
+    //         return [les.date, les.timeStart]
+    //  } )
+        // console.log(dateTime);
+     
+    // const unique =  dateTime.filter(les => {
+    //     if(les.toString() === ['2023-09-16' , '14:00:00'].toString() ){
+    //         return true
+    //     }
+    //     // console.log([les.date, les.timeStart]);
+    // })
+    
+        // console.log(unique);   
+
    //POST lesson
     const handleSubmit = (obj) => {
-        if(obj.timeEnd < obj.timeStart){
+
+        //get same lessons
+        const sameLesson = lessons.filter(les => {
+            if([les.date, les.timeStart].toString() === `${obj.date},${obj.timeStart}`){
+                return true
+            }
+        })
+        
+
+        if(sameLesson.length > 1) {
+            setMessage('На это время уже есть урок!');
+        }else if((obj.timeEnd < obj.timeStart) || (obj.timeEnd === obj.timeStart)){
             setMessage('Исправьте время окончания урока');
+            
         }else {
             postLesson({subject: {idSubject, name}, ...obj })
             .then((result) => {
@@ -73,10 +122,11 @@ const AddLesson = (props) => {
                 setMessage('Заполните "Предмет"');
             })
         }
-     
+       
     };
 
 
+ 
     return(
         <div className='addLesson'>
            
@@ -221,3 +271,4 @@ const AddLesson = (props) => {
     )
 }
 export default AddLesson;
+
