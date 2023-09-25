@@ -1,6 +1,7 @@
 const useService = () => {
     // const _urlBase = 'https://mock-service-for-lms-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/'
-    const _urlBase = 'http://195.161.68.231:8080/users/1'
+    // const _urlBase = 'http://195.161.68.231:8080/users/1'
+    const _urlBase = 'https://lms-h-2-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/users/1'
 
     const getResource = async(url) => {
         let res = await fetch(url);
@@ -29,7 +30,8 @@ const useService = () => {
     }
 
     const getSubjects = async() => {
-        const res = await getResource('http://195.161.68.231:8080/subjects'); 
+        // const res = await getResource('http://195.161.68.231:8080/subjects'); 
+        const res = await getResource('https://lms-h-2-git-valentinakolesnikova-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/subjects'); 
         return res;  
     }
 
@@ -43,7 +45,7 @@ const useService = () => {
         })
     
         if (!res.ok) {
-            throw new Error(`Could not fetch http://195.161.68.231:8080/users/1/lessons, status: ${res.status}`);
+            throw new Error(`Could not fetch ${_urlBase}/lessons, status: ${res.status}`);
         }
         return await res.json();
     }

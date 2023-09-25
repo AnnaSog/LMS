@@ -10,6 +10,7 @@ const Schedule = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [closeModal, setCloseModal] = useState(false);
   const [idLesson, setIdLesson] = useState('');
+  const [loading, setLoading] = useState(true);
     
   const {getAllLessons, getLesson, deleteLesson} = useService();
   
@@ -19,6 +20,7 @@ const Schedule = (props) => {
 
   const onLessonsLoaded = (lessons) => {   
     setLessons(lessons); 
+    setLoading(false);
   }
 
   function getLessons(){
@@ -97,7 +99,7 @@ const Schedule = (props) => {
     const daysOfWeek = lessons.map(les => les.date)
     return Array.from(new Set(daysOfWeek))
   }
-  const dayOfWeek = getLessonDate().map( (item, i) => <div key={i} className='tableBody'>{dataLessonByDay(item)}</div>)
+  const dayOfWeek = getLessonDate().map( (item, i) =>  <div key={i} className='tableBody'> {dataLessonByDay(item)}</div>)
 
 
   //DELETE lesson
@@ -112,19 +114,32 @@ const Schedule = (props) => {
   
   const {nameLesson, topic, date, timeStart, timeEnd, progress, checkSuccessfully, theoryUrl, practiceUrl, homeworkUrl} = lesson;
 
+  // const dataLessons =  getLessonDate().map( (item, i) => {
+  //   if(loading){
+  //     <div className='tableBody'> Loading... </div>
+  //   }else {
+  //     <div key={i} className='tableBody'> {dataLessonByDay(item)}</div>
+  //   }
+    
+  // }) 
+  
+
   return(
-    <div className='schedule'>
+    <div className='schedule'> 
       
+      {loading ? <div className='table'> <h2> Loading... </h2></div> :  
       <div className='table' onClick={(e) => onOpenModal(e.target.id)}>
           {week}
           {day}
-          {dayOfWeek}
+        {dayOfWeek}
+
+          
         {/* <div className='tableBody'>
           <div className='tableHead'>Вс <br/> <br/> 17.09</div>
           {dataLessonByDay('2023-09-17')} 
         </div> */}
       </div>
-      
+      }
 
       <div className={classNames} >
         
