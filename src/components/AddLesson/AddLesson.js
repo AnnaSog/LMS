@@ -76,37 +76,38 @@ const AddLesson = (props) => {
     }
 
 
-    // const dateTime = lessons.map(les => {
-    //    if (les.date && les.timeStart){
-    //     return les
-    //    }
-    // } )
-    // const dateTime = lessons.map(les => {
-    //         return [les.date, les.timeStart]
-    //  } )
-        // console.log(dateTime);
-     
-    // const unique =  dateTime.filter(les => {
-    //     if(les.toString() === ['2023-09-16' , '14:00:00'].toString() ){
-    //         return true
-    //     }
-    //     // console.log([les.date, les.timeStart]);
-    // })
-    
-        // console.log(unique);   
 
    //POST lesson
     const handleSubmit = (obj) => {
 
         //get same lessons
         const sameLesson = lessons.filter(les => {
-            if([les.date, les.timeStart].toString() === `${obj.date},${obj.timeStart}`){
-                return true
+            let lesDateTimeStart = [les.date, les.timeStart.slice(0, 3)].toString();
+            let lesDateTimeEnd = [les.date, les.timeEnd.slice(0, 3)].toString();
+            let objDateTimeStart = `${obj.date},${obj.timeStart.slice(0, 3)}`;
+            let objDateTimeEnd = `${obj.date},${obj.timeEnd.slice(0, 3)}`;
+            let lesTimeStart = [les.timeStart].toString();
+            let lesTimeEnd = [les.timeEnd].toString();
+            let objTimeStart = `${obj.timeStart}`;
+            let objTimeEnd = `${obj.timeEnd}`;
+           
+
+            if(lesDateTimeStart ===  objDateTimeStart){
+                if((lesTimeStart === objTimeStart) || (lesTimeStart > objTimeStart) || ( lesTimeEnd > objTimeStart) ){
+                    return true
+                }
+            }
+            if((lesDateTimeEnd === objDateTimeStart) || (lesDateTimeEnd === objDateTimeEnd)){
+                if((lesTimeEnd > objTimeStart) || (lesTimeEnd === objTimeEnd)){
+                    return true
+                }
+                
             }
         })
+        // console.log(sameLesson);
         
 
-        if(sameLesson.length > 1) {
+        if((sameLesson.length !== 0 ) ) { 
             setMessage('На это время уже есть урок!');
         }else if((obj.timeEnd < obj.timeStart) || (obj.timeEnd === obj.timeStart)){
             setMessage('Исправьте время окончания урока');
