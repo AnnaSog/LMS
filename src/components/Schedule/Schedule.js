@@ -10,7 +10,8 @@ const Schedule = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [closeModal, setCloseModal] = useState(false);
   const [idLesson, setIdLesson] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loadingAllLessons, setLoadingAllLessons] = useState(true);
+  const [loadingLesson, setLoadingLesson] = useState(true);
     
   const {getAllLessons, getLesson, deleteLesson} = useService();
   
@@ -20,7 +21,7 @@ const Schedule = (props) => {
 
   const onLessonsLoaded = (lessons) => {   
     setLessons(lessons); 
-    setLoading(false);
+    setLoadingAllLessons(false);
   }
 
   function getLessons(){
@@ -43,8 +44,9 @@ const Schedule = (props) => {
       return 
     }
     if(!props.openModalAddLesson){
-      setIdLesson(id)
-      setOpenModal(!openModal)
+      setLoadingLesson(false);
+      setIdLesson(id);
+      setOpenModal(!openModal);
       getLesson(id)
         .then(setLesson) 
     }
@@ -127,134 +129,135 @@ const Schedule = (props) => {
   return(
     <div className='schedule'> 
       
-      {loading ? <div className='table'> <h2> Loading... </h2></div> :  
-      <div className='table' onClick={(e) => onOpenModal(e.target.id)}>
-          {week}
-          {day}
-        {dayOfWeek}
+      {loadingAllLessons ? <div className='table'> <h2> Loading... </h2></div> :  
+        <div className='table' onClick={(e) => onOpenModal(e.target.id)}>
+            {week}
+            {day}
+          {dayOfWeek}
 
-          
-        {/* <div className='tableBody'>
-          <div className='tableHead'>Вс <br/> <br/> 17.09</div>
-          {dataLessonByDay('2023-09-17')} 
-        </div> */}
-      </div>
+            
+          {/* <div className='tableBody'>
+            <div className='tableHead'>Вс <br/> <br/> 17.09</div>
+            {dataLessonByDay('2023-09-17')} 
+          </div> */}
+        </div>
       }
 
       <div className={classNames} >
-        
+         
           <div onClick={onCloseModal} className="lessonClose">×</div>
-            
-          <form className="lessonForm" >
-            <label htmlFor='nameLesson'>Предмет</label> 
-            <input
-              id='nameLesson' 
-              className='lessonInput'
-              required 
-              defaultValue={nameLesson}
-            />
-
-            <label htmlFor='topicLesson'>Тема урока</label>
-            <input
-              className='lessonInput'
-              id='topicLesson' 
-              name="topic" 
-              type="text"
-              minLength="3"
-              maxLength="30"
-              required  
-              defaultValue={topic}
-            />
-
-            <label htmlFor='dateLesson'>Дата проведения</label>
-            <input 
-              className='lessonInput' 
-              id='dateLesson' 
-              name="date" 
-              required  
-              type="date" 
-              min="2023-09-11" 
-              max="2023-09-17"
-              defaultValue={date} 
-            />
-
-            <label htmlFor='timeStartLesson'>Начало урока </label>
-            <input 
-              className='lessonInput'
-              id='timeStartLesson'   
-              name="timeStart" 
-              required  
-              type="time" 
-              step="1"
-              min="09:00"
-              max="18:40"
-              defaultValue={timeStart}  
-            />
-                
-            <label htmlFor='timeEndLesson'> Окончание урока </label>
-            <input 
-              className='lessonInput'
-              id='timeEndLesson' 
-              name="timeEnd" 
-              required 
-              type="time" 
-              min="09:20"
-              max="19:00"
-              step="1"
-              defaultValue={timeEnd}  
-            />
-
-            <label htmlFor='theoryLesson'> Теория </label>
-            <input 
-              className='lessonInput'
-              id='theoryLesson' 
-              name="theory"  
-              type="text" 
-              defaultValue={theoryUrl}  
-            />
-
-            <label htmlFor='practiceLesson'> Практика </label>
-            <input 
-              className='lessonInput'
-              id='practiceLesson' 
-              name="practice" 
-              type="text"
-              defaultValue={practiceUrl}  
-            />
-            <label htmlFor='homeworkLesson'> Домашнее задание </label>
-            <input 
-              className='lessonInput'
-              id='homeworkLesson' 
-              name="homework"
-              type="text" 
-              defaultValue={homeworkUrl}  
-            />
-
-            <label htmlFor='progressLesson'>Прогресс выполнения %</label>
-            <input 
+          {loadingLesson ? <form className="lessonForm" ><h2>Loading...</h2></form> :  
+            <form className="lessonForm" >
+              <label htmlFor='nameLesson'>Предмет</label> 
+              <input
+                id='nameLesson' 
                 className='lessonInput'
-                id='progressLesson' 
-                name="progress" 
-                type="number" 
-                defaultValue={progress}
-            />
-
-            <label htmlFor='checkSuccessfullyLesson'>Выполнено</label>
-            <label className='checkbox'>
-              <input 
-                className='checkboxInput'
-                id='checkSuccessfullyLesson' 
-                name="checkSuccessfully" 
-                type="checkbox" 
-                defaultValue={checkSuccessfully}
+                required 
+                defaultValue={nameLesson}
               />
-            </label>
 
-            <div className='buttons'>
-              {/* <button className='updateBut' type="button">Обновить урок</button> */}
-              <button onClick={deleteLes} className='deleteBut'>Удалить урок</button>  
-            </div>                   
-          </form>
+              <label htmlFor='topicLesson'>Тема урока</label>
+              <input
+                className='lessonInput'
+                id='topicLesson' 
+                name="topic" 
+                type="text"
+                minLength="3"
+                maxLength="30"
+                required  
+                defaultValue={topic}
+              />
+
+              <label htmlFor='dateLesson'>Дата проведения</label>
+              <input 
+                className='lessonInput' 
+                id='dateLesson' 
+                name="date" 
+                required  
+                type="date" 
+                min="2023-09-11" 
+                max="2023-09-17"
+                defaultValue={date} 
+              />
+
+              <label htmlFor='timeStartLesson'>Начало урока </label>
+              <input 
+                className='lessonInput'
+                id='timeStartLesson'   
+                name="timeStart" 
+                required  
+                type="time" 
+                step="1"
+                min="09:00"
+                max="18:40"
+                defaultValue={timeStart}  
+              />
+                  
+              <label htmlFor='timeEndLesson'> Окончание урока </label>
+              <input 
+                className='lessonInput'
+                id='timeEndLesson' 
+                name="timeEnd" 
+                required 
+                type="time" 
+                min="09:20"
+                max="19:00"
+                step="1"
+                defaultValue={timeEnd}  
+              />
+
+              <label htmlFor='theoryLesson'> Теория </label>
+              <input 
+                className='lessonInput'
+                id='theoryLesson' 
+                name="theory"  
+                type="text" 
+                defaultValue={theoryUrl}  
+              />
+
+              <label htmlFor='practiceLesson'> Практика </label>
+              <input 
+                className='lessonInput'
+                id='practiceLesson' 
+                name="practice" 
+                type="text"
+                defaultValue={practiceUrl}  
+              />
+              <label htmlFor='homeworkLesson'> Домашнее задание </label>
+              <input 
+                className='lessonInput'
+                id='homeworkLesson' 
+                name="homework"
+                type="text" 
+                defaultValue={homeworkUrl}  
+              />
+
+              <label htmlFor='progressLesson'>Прогресс выполнения %</label>
+              <input 
+                  className='lessonInput'
+                  id='progressLesson' 
+                  name="progress" 
+                  type="number" 
+                  defaultValue={progress}
+              />
+
+              <label htmlFor='checkSuccessfullyLesson'>Выполнено</label>
+              <label className='checkbox'>
+                <input 
+                  className='checkboxInput'
+                  id='checkSuccessfullyLesson' 
+                  name="checkSuccessfully" 
+                  type="checkbox" 
+                  defaultValue={checkSuccessfully}
+                />
+              </label>
+
+              <div className='buttons'>
+                {/* <button className='updateBut' type="button">Обновить урок</button> */}
+                <button onClick={deleteLes} className='deleteBut'>Удалить урок</button>  
+              </div>                   
+            </form>
+          } 
         </div>          
      
         
