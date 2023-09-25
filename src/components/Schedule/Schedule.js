@@ -93,15 +93,10 @@ const Schedule = (props) => {
     }
   }).map((les, i) => dataLesson(les, i))
 
-  //create schedule
+  //create dynamic  schedule
   const week = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((item, i) => <div key={i} className='tableHead'>{item} </div>)
   const day = ['11.09', '12.09', '13.09', '14.09', '15.09', '16.09', '17.09'].map((item, i) => <div key={i}  className='tableHead'>{item}</div>);
-  
-  function getLessonDate(){
-    const daysOfWeek = lessons.map(les => les.date)
-    return Array.from(new Set(daysOfWeek))
-  }
-  const dayOfWeek = getLessonDate().map( (item, i) =>  <div key={i} className='tableBody'> {dataLessonByDay(item)}</div>)
+  const lessonDate = ['2023-09-11', '2023-09-12', '2023-09-13', '2023-09-14', '2023-09-15', '2023-09-16', '2023-09-17'].map( (item, i) =>  <div key={i} className='tableBody'> {dataLessonByDay(item)}</div>)
 
 
   //DELETE lesson
@@ -116,16 +111,6 @@ const Schedule = (props) => {
   
   const {nameLesson, topic, date, timeStart, timeEnd, progress, checkSuccessfully, theoryUrl, practiceUrl, homeworkUrl} = lesson;
 
-  // const dataLessons =  getLessonDate().map( (item, i) => {
-  //   if(loading){
-  //     <div className='tableBody'> Loading... </div>
-  //   }else {
-  //     <div key={i} className='tableBody'> {dataLessonByDay(item)}</div>
-  //   }
-    
-  // }) 
-  
-
   return(
     <div className='schedule'> 
       
@@ -133,12 +118,11 @@ const Schedule = (props) => {
         <div className='table' onClick={(e) => onOpenModal(e.target.id)}>
             {week}
             {day}
-          {dayOfWeek}
+          {lessonDate}
 
-            
           {/* <div className='tableBody'>
-            <div className='tableHead'>Вс <br/> <br/> 17.09</div>
-            {dataLessonByDay('2023-09-17')} 
+            <div className='tableHead'>Вс <br/> <br/> 11.09</div>
+            {dataLessonByDay('2023-09-11')} 
           </div> */}
         </div>
       }
