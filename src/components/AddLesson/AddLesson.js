@@ -14,8 +14,7 @@ const AddLesson = (props) => {
     const [idSubject, seIdSubject] = useState('');
     const [message, setMessage] = useState('');
     const [buttonAdd, setButtonAdd] = useState(addBut);
- 
-  
+    
     const {getAllLessons, getSubjects, postLesson} = useService();
 
     function addBut(){
@@ -41,13 +40,31 @@ const AddLesson = (props) => {
             value={elem.name} 
             id={elem.idSubject}
             > {elem.name}</option>
-    })
+    });
 
 
     //get id option 
     function onValueChange(e){
         setName(e.target.value)
-        seIdSubject(e.target.selectedIndex)
+        switch (e.target.value) {
+            case 'Английский язык':
+                return seIdSubject(5);
+            case 'Информатика':
+                return seIdSubject(6);
+            case 'Литературное чтение':
+                return seIdSubject(3);
+            case 'Математика':
+                return seIdSubject(1);
+            case 'Русский язык':
+                return seIdSubject(2);
+            case 'Технология':
+                return seIdSubject(4);
+            case 'Физкультура':
+                return seIdSubject(7);
+            default:
+            return
+        }
+
     }
    
     //get lessons
@@ -82,15 +99,14 @@ const AddLesson = (props) => {
 
         //get same lessons
         const sameLesson = lessons.filter(les => {
-            let lesDateTimeStart = [les.date, les.timeStart.slice(0, 3)].toString();
-            let lesDateTimeEnd = [les.date, les.timeEnd.slice(0, 3)].toString();
-            let objDateTimeStart = `${obj.date},${obj.timeStart.slice(0, 3)}`;
-            let objDateTimeEnd = `${obj.date},${obj.timeEnd.slice(0, 3)}`;
-            let lesTimeStart = [les.timeStart].toString();
-            let lesTimeEnd = [les.timeEnd].toString();
-            let objTimeStart = `${obj.timeStart}`;
-            let objTimeEnd = `${obj.timeEnd}`;
-           
+            let lesTimeStart = String(les.timeStart);
+            let lesTimeEnd = String(les.timeEnd);
+            let objTimeStart = String(obj.timeStart);
+            let objTimeEnd = String(obj.timeEnd);
+            let lesDateTimeStart = `${les.date},${lesTimeStart.slice(0, 3)}`; 
+            let lesDateTimeEnd = `${les.date},${lesTimeEnd.slice(0, 3)}`;
+            let objDateTimeStart = `${obj.date},${objTimeStart.slice(0, 3)}`;
+            let objDateTimeEnd = `${obj.date},${objTimeEnd.slice(0, 3)}`;
 
             if(lesDateTimeStart ===  objDateTimeStart){
                 if((lesTimeStart === objTimeStart) || (lesTimeStart > objTimeStart) || ( lesTimeEnd > objTimeStart) ){
@@ -104,8 +120,6 @@ const AddLesson = (props) => {
                 
             }
         })
-        // console.log(sameLesson);
-        
 
         if((sameLesson.length !== 0 ) ) { 
             setMessage('На это время уже есть урок!');
@@ -115,7 +129,7 @@ const AddLesson = (props) => {
         }else {
             postLesson({subject: {idSubject, name}, ...obj })
             .then((result) => {
-                    console.log(result);
+                    // console.log(result);
                     setButtonAdd(<div className='setButtonAdd'></div>);
                     setMessage('Урок добавлен! Обновите страницу');
                 })
@@ -125,7 +139,6 @@ const AddLesson = (props) => {
         }
        
     };
-
 
  
     return(

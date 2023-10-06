@@ -114,7 +114,7 @@ const Schedule = (props) => {
   return(
     <div className='schedule'> 
       
-      {loadingAllLessons ? <div className='table'> <h2> Loading... </h2></div> :  
+      {loadingAllLessons ? <div className='schedule'> <h2> Loading... </h2></div> :  
         <div className='table' onClick={(e) => onOpenModal(e.target.id)}>
             {week}
             {day}
